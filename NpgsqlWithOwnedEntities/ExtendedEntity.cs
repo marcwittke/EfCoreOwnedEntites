@@ -4,6 +4,6 @@ namespace NpgsqlWithOwnedEntities
     {
         public string ExtendedName { get; set; }
 
-        public OwnedTwo OwnedTwo { get; set; }
+        // public OwnedTwo OwnedTwo { get; set; }
     }
 }

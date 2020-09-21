@@ -7,13 +7,14 @@ namespace NpgsqlWithOwnedEntities
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<SimpleEntity> BaseEntities { get; set; }
+        public DbSet<SimpleEntity> SimpleEntities { get; set; }
         public DbSet<ExtendedEntity> ExtendedEntities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseNpgsql("Host=localhost;Username=anicors;Password=P0stgr3s;");
-            optionsBuilder.UseSqlite("Data Source=:memory:;Version=3;New=True;");
+            //optionsBuilder.UseSqlite("Data Source=:memory:;Version=3;New=True;");
+            optionsBuilder.UseSqlServer("Server=localhost,14330;Database=TestDb;User=sa;Password=Metropolitan2019");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,19 +43,17 @@ namespace NpgsqlWithOwnedEntities
                 baseEntityBuilder.Property(simpleEntity => simpleEntity.Name).HasMaxLength(100);
                 // baseEntityBuilder.OwnsOne(simpleEntity => simpleEntity.OwnedOne, ownedOneBuilder =>
                 // {
-                //     ownedOneBuilder.WithOwner();
                 //     ownedOneBuilder.Property(ownedOne => ownedOne.Name1).HasMaxLength(120);
                 // });
             });
             
             modelBuilder.Entity<ExtendedEntity>(extendedEntityBuilder =>
             {
-                extendedEntityBuilder.Property(extendedEntity => extendedEntity.ExtendedName).HasMaxLength(1000);
-                extendedEntityBuilder.OwnsOne(extendedEntity => extendedEntity.OwnedTwo, ownedTwoBuilder =>
-                {
-                    ownedTwoBuilder.WithOwner();
-                    ownedTwoBuilder.Property(ownedTwo => ownedTwo.Name2).HasMaxLength(300);
-                });
+                extendedEntityBuilder.Property(extendedEntity => extendedEntity.ExtendedName).HasMaxLength(1000).IsRequired();
+                // extendedEntityBuilder.OwnsOne(extendedEntity => extendedEntity.OwnedTwo, ownedTwoBuilder =>
+                // {
+                //     ownedTwoBuilder.Property(ownedTwo => ownedTwo.Name2).HasMaxLength(300);
+                // });
             });
             
             // ApplySnakeCaseMapping
