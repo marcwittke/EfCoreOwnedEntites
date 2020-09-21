@@ -8,6 +8,6 @@ namespace NpgsqlWithOwnedEntities
 
         public DateTime Timestamp { get; set; }
 
-        //public OwnedOne OwnedOne { get; set; }
+        public OwnedOne OwnedOne { get; set; }
     }
 }
