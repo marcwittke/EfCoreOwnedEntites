@@ -83,8 +83,7 @@ namespace NpgsqlWithOwnedEntities
 
                 sib.OwnsOne(si => si.ResponsibleOwner, eb =>
                 {
-                    eb.Property<uint>("xmin").HasColumnType("xid").HasColumnName("xmin").ValueGeneratedOnAddOrUpdate()
-                        .IsConcurrencyToken();
+                    //eb.Property<uint>("xmin").HasColumnType("xid").HasColumnName("xmin").ValueGeneratedOnAddOrUpdate().IsConcurrencyToken();
                     eb.Property(e => e.Department).HasMaxLength(400);
                     eb.Property(e => e.EmployeeId).HasMaxLength(400);
                     eb.Property(e => e.Name).HasMaxLength(400);
