@@ -63,22 +63,22 @@ namespace NpgsqlWithOwnedEntities.Tests
                 }
 
                 int stockItemId;
-                using (var dbc = new MyDbContext())
-                {
-                    var store = dbc.Stores.ToArray()[0];
-                    var stockItem = GenerateStockItem(nextId++, store.Id, store.Name);
-                    dbc.Add(stockItem);
-                    dbc.SaveChanges();
-                    
-                    Assert.Null(stockItem.Reservation);
-                    stockItemId = stockItem.Id;
-                }
+using (var dbc = new MyDbContext())
+{
+    var store = dbc.Stores.ToArray()[0];
+    var stockItem = GenerateStockItem(nextId++, store.Id, store.Name);
+    dbc.Add(stockItem);
+    dbc.SaveChanges();
+    
+    Assert.Null(stockItem.Reservation);
+    stockItemId = stockItem.Id;
+}
 
-                using (var dbc = new MyDbContext())
-                {
-                    var stockItem = dbc.Find<StockItem>(stockItemId);
-                    Assert.Null(stockItem.Reservation);
-                }
+using (var dbc = new MyDbContext())
+{
+    var stockItem = dbc.Find<StockItem>(stockItemId);
+    Assert.Null(stockItem.Reservation);
+}
             }
             catch (Exception ex)
             {
